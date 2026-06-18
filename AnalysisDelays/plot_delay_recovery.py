@@ -21,24 +21,9 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 import os
-from pathlib import Path
 
-# ============================================================
-# 配置区域 —— 切换场景时修改以下路径即可
-# ============================================================
-PLAN_PATH = os.path.expanduser(
-    "/home/dell/Release_development/jh/jh_s1/data/plan_TT0 .xlsx"
-)
-RESCHEDULE_PATH = os.path.expanduser(
-    "/home/dell/Release_development/jh/jh_s1/data/S1_t1/reschedule_TT0.xlsx"
-)
-EVENT_CSV_PATH = os.path.expanduser(
-    "/home/dell/Release_development/jh/jh_s1/data/S1_t1/S1_test.csv"
-)
-OUTPUT_DIR = os.path.expanduser(
-    "/home/dell/Release_development/jh/jh_s1/output/S1_t1"
-)
-# ============================================================
+# 配置区域已移动到 testconfig.py 模块
+from testconfig import PLAN_PATH, RESCHEDULE_PATH, EVENT_CSV_PATH, OUTPUT_DIR
 
 # 全局绘图设置 —— 中文字体
 matplotlib.rcParams["axes.unicode_minus"] = False
@@ -177,6 +162,8 @@ def compute_delay_matrix(
     return delay_matrix
 
 
+# TODO：改名 plotStaionDelays_for_PrimaryDelayTrains()
+# 新建一个 plotStationdelays_AllTrains()，用于绘制所有列车的晚点恢复能力图
 def plot_delay_recovery(
     delay_matrix: pd.DataFrame,
     events_df: pd.DataFrame,
