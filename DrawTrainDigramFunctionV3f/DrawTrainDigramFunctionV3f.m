@@ -379,9 +379,11 @@ end
 %             StationPosition每个站点在y轴的坐标, LineID为指定的线路号
 %  输出参数：无
 %  调用函数：parseTime()时间转换函数、IsStationOnLine()判断某站是否在指定线路上
-function [ ] = DrawLineDigram(RAW, trainNum, stationNum, DirectionSign, StationPosition, LineID)
+function [ ] = DrawLineDigram(RAW, trainNum, stationNum, DirectionSign, StationPosition, LineID, colorMap)
     hold on;
-    colorMap = {'r', 'b'};   % 1=下行(红)，2=上行(蓝)
+    if nargin < 7 || isempty(colorMap)
+        colorMap = {'r', 'b'};   % 默认 1=下行(红)，2=上行(蓝)
+    end
 
     % 存放plot语句
     LineHandle = [];
@@ -495,6 +497,29 @@ function [ ] = DrawLineDigram(RAW, trainNum, stationNum, DirectionSign, StationP
         % 生成图例，位置选择：'BestOutside'图像外；'NorthEast'图像右上方
         legend(LineHandle, trainName, 'Location', 'BestOutside');
     end
+end
+
+
+%% 函数名称：DrawLineDigramBasevsRescheduled
+%  开发者： 李仁龙
+%  描    述：根据时刻表的数据与指定的线路号，两次调用DrawLineDigram（）函数
+%           需要指定绘图颜色，先用黑色绘制基本运行图，再用红色绘制调度后的运行图
+%  输入参数：trainNum列车数量, stationNum站台数量, RAW全部内容的元胞变量, DirectionSign上下行标识, 
+%             StationPosition每个站点在y轴的坐标, LineID为指定的线路号
+%  输出参数：无
+%  调用函数：parseTime()时间转换函数、IsStationOnLine()判断某站是否在指定线路上
+function [ ] = DrawLineDigramBasevsRescheduled(RAW, trainNum, stationNum, DirectionSign, StationPosition, LineID)
+    % (1) First read the base train timetable and draw it in black color
+     colorMap = {'k', 'k'};   % 基本图采用黑色
+     % TODO: Get RAW data, etc. (trainNum, stationNum, DirectionSign, StationPosition, LineID)
+     DrawLineDigram(RAW, trainNum, stationNum, DirectionSign, StationPosition, LineID, colorMap)
+
+   % (2) Then read the rescheduled train timetable (vef) and draw it in red color (downward) and blue (upward)
+    colorMap = {'r', 'b'};   % 默认 1=下行(红)，2=上行(蓝)
+    
+    % TODO: Get RAW data, etc. (trainNum, stationNum, DirectionSign, StationPosition, LineID)
+    DrawLineDigram(RAW, trainNum, stationNum, DirectionSign, StationPosition, LineID, colorMap)
+
 end
 
 %% 函数名称：MarkTrainNumber
