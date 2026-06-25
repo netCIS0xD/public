@@ -508,9 +508,21 @@ end
 %             StationPosition每个站点在y轴的坐标, LineID为指定的线路号
 %  输出参数：无
 %  调用函数：parseTime()时间转换函数、IsStationOnLine()判断某站是否在指定线路上
-function [ ] = DrawLineDigramBasevsRescheduled(RAW, trainNum, stationNum, DirectionSign, StationPosition, LineID)
+% function [ ] = DrawLineDigramBasevsRescheduled(RAW, trainNum, stationNum, DirectionSign, StationPosition, LineID)
+function [ ] = DrawLineDigramBasevsRescheduled(TTFilev3f, sheetName, LineID)
     
+
     % TODO: 参考脚本文件DrawV3f.m 的流程，实现基本图和调度计划图对比作图
+
+    % 读取以Excel形式存储的列车时刻表，时刻表的标准遵循版本V3f
+    [RAW, NUM, trainNum, stationNum] = DrawTrainDigram.ReadTrainSchedule(TTFilev3f, sheetName);
+    % 设置基本信息，LineID为指定线路号，color为画图指定颜色
+    if nargin < 3 || isempty(LineID)
+            LineID = 1;     % 默认单线：1   多线：'1,2'
+    end
+
+
+
 
     % (1) First read the base train timetable and draw it in black color
      colorMap = {'k', 'k'};   % 基本图采用黑色
