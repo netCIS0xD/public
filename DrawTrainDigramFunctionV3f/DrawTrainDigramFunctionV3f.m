@@ -509,6 +509,9 @@ end
 %  输出参数：无
 %  调用函数：parseTime()时间转换函数、IsStationOnLine()判断某站是否在指定线路上
 function [ ] = DrawLineDigramBasevsRescheduled(RAW, trainNum, stationNum, DirectionSign, StationPosition, LineID)
+    
+    % TODO: 参考脚本文件DrawV3f.m 的流程，实现基本图和调度计划图对比作图
+
     % (1) First read the base train timetable and draw it in black color
      colorMap = {'k', 'k'};   % 基本图采用黑色
      % TODO: Get RAW data, etc. (trainNum, stationNum, DirectionSign, StationPosition, LineID)
@@ -519,7 +522,8 @@ function [ ] = DrawLineDigramBasevsRescheduled(RAW, trainNum, stationNum, Direct
     
     % TODO: Get RAW data, etc. (trainNum, stationNum, DirectionSign, StationPosition, LineID)
     DrawLineDigram(RAW, trainNum, stationNum, DirectionSign, StationPosition, LineID, colorMap)
-
+    
+   % TODO：车次号只标注一次，不用重复标注
 end
 
 %% 函数名称：MarkTrainNumber
